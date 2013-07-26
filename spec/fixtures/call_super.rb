@@ -11,7 +11,7 @@ class BasisKlass
   end
 end
 
-class SomeClass < BasisKlass
+class SubClass < BasisKlass
   # this mehtod should be calling super
   def do_something
     # super
