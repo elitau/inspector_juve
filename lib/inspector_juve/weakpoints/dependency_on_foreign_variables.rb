@@ -41,7 +41,7 @@ class DependencyOnForeignVariables
 
   # TODO: Handle meths mixed in from other modules
   def search_access_instance_variable_in_module
-    modules_with_use_of_instance_variables(all_modules).each do |modul|
+    modules_with_use_of_instance_variables(modules_to_look_at).each do |modul|
       instance_variables_defined_outside_of(
         modul,
         instance_variables_accessed_by_module(modul)
@@ -49,6 +49,11 @@ class DependencyOnForeignVariables
         puts "Method #{instance_variable.method} accesses instance variable #{instance_variable.name}"
       end
     end
+  end
+
+  def modules_to_look_at
+    # debugger
+    all_modules.reject{|modul| modul.name.to_s.end_with?('Helper')}
   end
 
   def all_modules

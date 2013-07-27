@@ -25,7 +25,7 @@ class KlassIncludingBadModule
 end
 
 class AnotherKlass
-  # include BadModule
+  include BadModule
   def initialize
     @accessed_instance_variable = 'value set by AnotherKlass'
   end
