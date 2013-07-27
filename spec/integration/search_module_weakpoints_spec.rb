@@ -10,6 +10,12 @@ describe "Search for bad instance variable access" do
   end
 
   it "should list access to foreign variables by modules" do
-    DependencyOnForeignVariables.new(yardoc_objects_db_path).search
+    analyzer = DependencyOnForeignVariables.new(yardoc_objects_db_path)
+    $output = ''
+    def analyzer.puts(arg)
+      $output << arg.to_s
+    end
+    analyzer.search
+    $output.should include('Method <bad_module_method> accesses instance variable @accessed_instance_variable')
   end
 end

@@ -1,8 +1,8 @@
 # This module accesses the instance variables of the class it was mixed in
 # without using a getter method
 module BadModule
-  def some_module_method
-    @instance_variable = "set by module WeakModule"
+  def bad_module_method
+    @accessed_instance_variable = "set by module WeakModule"
     @modules_instance_variable = "That's mine"
   end
 
@@ -20,6 +20,6 @@ end
 class KlassIncludingBadModule
   include BadModule
   def initialize
-    @instance_variable = 'value set by constructor'
+    @accessed_instance_variable = 'value set by constructor'
   end
 end
