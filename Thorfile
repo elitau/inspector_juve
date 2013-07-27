@@ -12,14 +12,18 @@ class Weakpoints < Thor
   desc 'search', 'search missing super call in overwritten method'
   def search(folder_with_ruby_code)
     db_folder = yardoc_objects_folder(folder_with_ruby_code)
-    create_ast(db_folder, folder_with_ruby_code) unless File.exists?(db_folder)
-    NoSuperCall.new(db_folder).search
+    create_ast(db_folder, folder_with_ruby_code) unless use_cached_db?(db_folder)
+    # NoSuperCall.new(db_folder).search
     DependencyOnForeignVariables.new(db_folder).search
   end
 
   private
   def yardoc_objects_folder(folder_with_ruby_code)
     code_name = File.expand_path(folder_with_ruby_code).to_s.split('/')[-3..-1].join('_')
-    File.join(folder_with_ruby_code, ".#{code_name}")
+    File.join(folder_with_ruby_code, ".#{code_name}_yardoc")
+  end
+
+  def use_cached_db?(db_folder)
+    File.exists?(db_folder) and not db_folder == './.Dropbox_Masterthesis_static_analysis_yardoc'
   end
 end
