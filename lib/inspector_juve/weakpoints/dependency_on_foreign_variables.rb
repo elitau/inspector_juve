@@ -5,6 +5,11 @@ class DependencyOnForeignVariables
       def == other
         name == other.name
       end
+      alias_method :eql?, :==
+
+      def hash
+        name.hash
+      end
 
       def inspect
         "#<#{name} in #{method.name}>"
@@ -37,10 +42,12 @@ class DependencyOnForeignVariables
   # TODO: Handle meths mixed in from other modules
   def search_access_instance_variable_in_module
     modules_with_use_of_instance_variables(all_modules).each do |modul|
-      puts instance_variables_defined_outside_of(
+      instance_variables_defined_outside_of(
         modul,
         instance_variables_accessed_by_module(modul)
-      )
+      ).each do |instance_variable|
+        puts "Method #{instance_variable.method} accesses instance variable #{instance_variable.name}"
+      end
     end
   end
 
@@ -54,7 +61,7 @@ class DependencyOnForeignVariables
   end
 
   def log(message)
-    puts message
+    # puts message
   end
 
   def modules_with_use_of_instance_variables(modules)
@@ -84,6 +91,7 @@ class DependencyOnForeignVariables
   # @param [YARD::CodeObjects::Base] instance variables to search for
   # @return [Array] the matched instance variable names
   def instance_variables_defined_outside_of(modul, instance_variables, root = Registry.root)
+    log("instance_variables_defined_outside_of: #{modul}")
     return [] if modul == root
     variables = []
     root.children.each do |child|

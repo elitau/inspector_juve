@@ -16,6 +16,6 @@ describe "Search for bad instance variable access" do
       $output << arg.to_s
     end
     analyzer.search
-    $output.should include('Method <bad_module_method> accesses instance variable @accessed_instance_variable')
+    $output.should include('Method KlassIncludingBadModule#initialize accesses instance variable @accessed_instance_variable')
   end
 end
