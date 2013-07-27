@@ -5,6 +5,7 @@ include InspectorJuve
 describe Report do
   it "accept new weakpoint entries" do
     report = Report.new
-    report.add double(:entry)
+    report << entry = double(:entry)
+    report.entries.should include(entry)
   end
 end
