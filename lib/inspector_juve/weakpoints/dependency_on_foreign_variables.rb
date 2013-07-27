@@ -1,4 +1,4 @@
-class AccessInstanceVariableInModule
+class DependencyOnForeignVariables
   include YARD
   class MethodBody
     InstanceVariable = Struct.new(:name, :method) do

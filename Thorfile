@@ -13,6 +13,6 @@ class Weakpoints < Thor
   def search(code_folder)
     create_ast(code_folder)
     # NoSuperCall.new(File.join(code_folder, '.yardoc')).search
-    AccessInstanceVariableInModule.new(File.join(code_folder, '.yardoc')).search
+    DependencyOnForeignVariables.new(File.join(code_folder, '.yardoc')).search
   end
 end

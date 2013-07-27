@@ -1,9 +1,9 @@
-require 'open3'
 require 'fileutils'
+require_relative '../lib/inspector_juve'
 
 def run_yardoc_for_fixtures_folder
   yard_command = "cd #{fixtures_path} && bundle exec yardoc -n ."
-  stdin, stdout, stderr = Open3.popen3(yard_command)
+  `#{yard_command}`
 end
 
 def destroy_fixture_yardocs
