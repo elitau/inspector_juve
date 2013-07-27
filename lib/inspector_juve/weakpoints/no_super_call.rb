@@ -4,7 +4,7 @@ class NoSuperCall
 
   def initialize(yard_objects_folder)
     Registry.load! yard_objects_folder
-    puts "Searching for weak points in #{yard_objects_folder}"
+    puts "Searching for NoSuperCall weakpoint"
   end
 
   def search

@@ -30,7 +30,7 @@ class DependencyOnForeignVariables
 
   def initialize(yard_objects_folder)
     Registry.load! yard_objects_folder
-    puts "Searching for weak points in #{yard_objects_folder}"
+    puts "Searching for DependencyOnForeignVariables weakpoint"
   end
 
   def search
@@ -105,7 +105,7 @@ class DependencyOnForeignVariables
     return [] unless class_or_module.is_a? YARD::CodeObjects::NamespaceObject
     log "Checking use of variables in #{class_or_module} for #{variables}"
     only_self_defined_meths(class_or_module).map do |meth|
-      MethodBody.new(meth).instance_variables & variables
+      variables & MethodBody.new(meth).instance_variables
     end.flatten
   end
 
