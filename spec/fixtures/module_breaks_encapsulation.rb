@@ -23,3 +23,10 @@ class KlassIncludingBadModule
     @accessed_instance_variable = 'value set by constructor'
   end
 end
+
+class AnotherKlass
+  # include BadModule
+  def initialize
+    @accessed_instance_variable = 'value set by AnotherKlass'
+  end
+end

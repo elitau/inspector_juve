@@ -97,12 +97,13 @@ class DependencyOnForeignVariables
     root.children.each do |child|
       variables.concat instance_variables_defined_outside_of(modul, instance_variables, child)
     end if root.respond_to?(:children)
-    variables.concat class_or_module_uses_variables(root, instance_variables)
+    variables.concat class_or_module_uses_variables(modul, root, instance_variables)
   end
 
   # @return [Array] matched variable names
-  def class_or_module_uses_variables(class_or_module, variables)
+  def class_or_module_uses_variables(bad_module, class_or_module, variables)
     return [] unless class_or_module.is_a? YARD::CodeObjects::NamespaceObject
+    return [] unless class_or_module.mixins.include?(bad_module)
     log "Checking use of variables in #{class_or_module} for #{variables}"
     only_self_defined_meths(class_or_module).map do |meth|
       variables & MethodBody.new(meth).instance_variables
