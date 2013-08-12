@@ -1,6 +1,14 @@
 require "spec_helper"
 module InspectorJuve
   describe MissingSuperInMethodMissing do
+    before(:each) do
+      run_yardoc_for_fixtures_folder
+    end
+
+    after(:each) do
+      # destroy_fixture_yardocs
+    end
+
     it "should search" do
       reporter = []
       weakpoint = MissingSuperInMethodMissing.new(

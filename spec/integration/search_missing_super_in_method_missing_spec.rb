@@ -1,8 +1,6 @@
 require 'spec_helper'
 
 describe "Search for missing super in method_missing methods" do
-  include InspectorJuve
-
   before(:each) do
     run_yardoc_for_fixtures_folder
   end
@@ -12,7 +10,7 @@ describe "Search for missing super in method_missing methods" do
   end
 
   it "should list access to foreign variables by modules" do
-    localizer = MissingSuperInMethodMissing.new(
+    localizer = InspectorJuve::MissingSuperInMethodMissing.new(
                  object_repository: object_repository_for_fixtures
                )
     capture_output_from(localizer) do |output|

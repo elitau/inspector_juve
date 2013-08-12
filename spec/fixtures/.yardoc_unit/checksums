@@ -1,0 +1,3 @@
+call_super.rb 4e7a27b643321a0a17b6d048689baeab3cfdb785
+module_breaks_encapsulation.rb 77c379666fac8afb0522c3b514c1571b0a78be64
+missing_super_in_method_missing_fixture.rb a5ecbe8bea83cf9938a02f9e8e9f215f7fe9cb92

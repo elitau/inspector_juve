@@ -2,7 +2,7 @@ require 'fileutils'
 require_relative '../lib/inspector_juve'
 
 def run_yardoc_for_fixtures_folder
-  yard_command = "cd #{fixtures_path} && bundle exec yardoc -n ."
+  yard_command = "cd #{fixtures_path} && bundle exec yardoc --db #{yardoc_objects_db_path} -n ."
   `#{yard_command}`
 end
 
@@ -15,7 +15,12 @@ def fixtures_path
 end
 
 def yardoc_objects_db_path
-  fixtures_path + '/.yardoc'
+  fixtures_path + "/.yardoc_#{integration_spec? ? 'integration' : 'unit'}"
+end
+
+def integration_spec?
+  ARGV.join(" ").include?("spec/integration")
+  # File.dirname(__FILE__).include?('integration')
 end
 
 def capture_output_from(object)
