@@ -17,3 +17,12 @@ end
 def yardoc_objects_db_path
   fixtures_path + '/.yardoc'
 end
+
+def capture_output_from(object)
+  $output = ''
+  def object.puts(arg)
+    $output << arg.to_s
+  end
+  yield $output if block_given?
+  $output
+end
