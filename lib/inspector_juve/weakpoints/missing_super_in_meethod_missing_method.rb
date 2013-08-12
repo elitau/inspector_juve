@@ -10,7 +10,7 @@ module InspectorJuve
     private
       def all_method_missing_methods
         object_repository.all_methods.select do |method|
-          method.name == 'method_missing'
+          method.name == :method_missing
         end
       end
   end
