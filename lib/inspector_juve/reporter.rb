@@ -1,5 +1,5 @@
 module InspectorJuve
-  class Report
+  class Reporter
     def initialize
       @entries = []
     end
@@ -9,6 +9,12 @@ module InspectorJuve
 
     def entries
       @entries
+    end
+
+    def report
+      entries.each do |entry|
+        puts entry.to_s
+      end
     end
   end
 end

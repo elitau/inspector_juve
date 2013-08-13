@@ -15,11 +15,11 @@ def fixtures_path
 end
 
 def yardoc_objects_db_path
-  fixtures_path + "/.yardoc_#{integration_spec? ? 'integration' : 'unit'}"
+  fixtures_path + "/.yardoc_#{unit_spec? ? 'unit' : 'integration'}"
 end
 
-def integration_spec?
-  ARGV.join(" ").include?("spec/integration")
+def unit_spec?
+  @example.location.include?("spec/unit")
   # File.dirname(__FILE__).include?('integration')
 end
 

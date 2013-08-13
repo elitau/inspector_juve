@@ -10,13 +10,18 @@ describe "Search for missing super in method_missing methods" do
   end
 
   it "should list access to foreign variables by modules" do
-    localizer = InspectorJuve::MissingSuperInMethodMissing.new(
-                 object_repository: object_repository_for_fixtures
-               )
-    capture_output_from(localizer) do |output|
-      localizer.search
-      output.should include('Method ClassWithBadMethodMissing#method_missing has no super call')
-    end
+    # localizer = InspectorJuve::MissingSuperInMethodMissing.new(
+    #              object_repository: object_repository_for_fixtures
+    #            )
+    # capture_output_from(localizer) do |output|
+      reporter = []
+      reporter.stub(:report)
+      InspectorJuve.run yardoc_objects_db_path, reporter
+      # localizer.search
+      reporter.should_not be_empty
+
+      reporter.first.to_s.should == 'MissingSuperInMethodMissingFixture#method_missing has no super call'
+    # end
   end
 
   def object_repository_for_fixtures
