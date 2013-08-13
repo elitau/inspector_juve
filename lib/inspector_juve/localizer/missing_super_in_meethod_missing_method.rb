@@ -3,7 +3,7 @@ module InspectorJuve
     def search
       all_method_missing_methods.select do |mm_method|
         # mm_method.source !~ /super/
-        @reporter << Weakpoint.new(mm_method, 'has no super call')
+        reporter << Weakpoint.new(mm_method, 'has no super call')
       end
     end
 

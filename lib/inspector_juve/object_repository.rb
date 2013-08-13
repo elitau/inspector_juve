@@ -9,6 +9,14 @@ module InspectorJuve
       registry.all(:method)
     end
 
+    def all_modules
+      registry.all(:module)
+    end
+
+    def root
+      registry.root
+    end
+
     private
       def registry
         load_registry unless registry_loaded?

@@ -14,7 +14,6 @@ class Weakpoints < Thor
     db_folder = yardoc_objects_folder(folder_with_ruby_code)
     create_ast(db_folder, folder_with_ruby_code) unless use_cached_db?(db_folder)
     # NoSuperCall.new(db_folder).search
-    # DependencyOnForeignVariables.new(db_folder).search
     InspectorJuve.run(db_folder)
   end
 

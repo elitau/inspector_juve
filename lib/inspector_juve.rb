@@ -13,9 +13,14 @@ module InspectorJuve
   class LocalizerFactory
     class << self
       def all_localizers(object_repository, reporter)
-        [MissingSuperInMethodMissing.new(
-          object_repository: object_repository,
-          reporter: reporter
+        [
+          MissingSuperInMethodMissing.new(
+            object_repository: object_repository,
+            reporter: reporter
+          ),
+          DependencyOnForeignVariables.new(
+            object_repository: object_repository,
+            reporter: reporter
           )
         ]
       end
