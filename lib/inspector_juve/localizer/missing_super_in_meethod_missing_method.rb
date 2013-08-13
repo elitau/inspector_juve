@@ -2,8 +2,9 @@ module InspectorJuve
   class MissingSuperInMethodMissing < WeakpointLocalizer
     def search
       all_method_missing_methods.select do |mm_method|
-        # mm_method.source !~ /super/
-        reporter << Weakpoint.new(mm_method, 'has no super call')
+        unless mm_method.source =~ /super/
+          reporter << Weakpoint.new(mm_method, 'has no super call')
+        end
       end
     end
 

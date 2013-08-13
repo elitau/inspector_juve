@@ -14,15 +14,14 @@ module InspectorJuve
     class << self
       def all_localizers(object_repository, reporter)
         [
-          MissingSuperInMethodMissing.new(
-            object_repository: object_repository,
-            reporter: reporter
-          ),
-          DependencyOnForeignVariables.new(
+          MissingSuperInMethodMissing,
+          DependencyOnForeignVariables,
+        ].map do |localizer_class|
+          localizer_class.new(
             object_repository: object_repository,
             reporter: reporter
           )
-        ]
+        end
       end
     end
   end
