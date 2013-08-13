@@ -8,11 +8,16 @@ module InspectorJuve
     end
 
     def message
-      "#{code_object.to_s} #{@error_message}"
+      "#{code_object.to_s} #{@error_message} in #{path(code_object)}"
     end
 
     def to_s
       message
+    end
+
+    private
+    def path(code_object)
+      code_object.files.first.join(":")
     end
   end
 end
