@@ -13,6 +13,10 @@ module InspectorJuve
       registry.all(:module)
     end
 
+    def all_subclasses
+      root.children.select{|namespace| namespace.class == YARD::CodeObjects::ClassObject && namespace.superclass.class == YARD::CodeObjects::ClassObject}
+    end
+
     def root
       registry.root
     end

@@ -1,5 +1,11 @@
 module InspectorJuve
   class MissingSuperInMethodMissing < WeakpointLocalizer
+    class << self
+      def title
+        "MethodMissing methods not calling super or raising NoMethodError"
+      end
+    end
+
     def search
       all_method_missing_methods.select do |mm_method|
         unless mm_method.source =~ /super|NoMethodError/

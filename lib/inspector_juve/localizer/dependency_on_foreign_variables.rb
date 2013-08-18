@@ -1,3 +1,5 @@
+# This localizer searches for Module methods that accesses instance variables
+# of classes they are included in
 module InspectorJuve
   class DependencyOnForeignVariables < WeakpointLocalizer
     class MethodBody
@@ -28,10 +30,11 @@ module InspectorJuve
       end
     end
 
-    # def initialize(yard_objects_folder)
-    #   Registry.load! yard_objects_folder
-    #   puts "Searching for DependencyOnForeignVariables weakpoint"
-    # end
+    class << self
+      def title
+        "Modules accessing foreign instance variables"
+      end
+    end
 
     def search
       search_access_instance_variable_in_module
@@ -46,23 +49,16 @@ module InspectorJuve
           modul,
           instance_variables_accessed_by_module(modul)
         ).each do |instance_variable|
-          reporter << "Method #{instance_variable.method} accesses instance variable #{instance_variable.name}"
+          reporter << Weakpoint.new(instance_variable.method, "accesses instance variable #{instance_variable.name}")
         end
       end
     end
 
     def modules_to_look_at
-      # debugger
       all_modules.reject{|modul| modul.name.to_s.end_with?('Helper')}
     end
 
     def all_modules
-      # log "Searching for all modules..."
-      # @all_modules ||= Registry.root.children.select do |class_or_module|
-      #   class_or_module.class == YARD::CodeObjects::ModuleObject
-      # end
-
-      # log "Found #{@all_modules}"
       @all_modules ||= object_repository.all_modules
     end
 

@@ -10,12 +10,13 @@ describe "Search for missing super in method_missing methods" do
   end
 
   it "should list access to foreign variables by modules" do
-    reporter = []
-    reporter.stub(:report)
-    InspectorJuve.run yardoc_objects_db_path, reporter
-    reporter.should_not be_empty
-    error_message = 'MissingSuperInMethodMissingFixture#method_missing has no super call'
-    reporter.map(&:to_s).should include(error_message)
+    reporters = []
+    reporters.stub(:report)
+    InspectorJuve.run yardoc_objects_db_path, reporters
+    reporters.should_not be_empty
+    error_message = 'MissingSuperInMethodMissingFixture#method_missing has no super call in missing_super_in_method_missing_fixture.rb:3'
+    reporter = reporters.find{ |r| r.localizer == MissingSuperInMethodMissing}
+    reporter.entries.map(&:to_s).should include(error_message)
   end
 
   def object_repository_for_fixtures

@@ -1,8 +1,8 @@
 require 'yard'
 require './lib/inspector_juve'
-# require './lib/inspector_juve/weakpoints/dependency_on_foreign_variables'
 
 class Weakpoints < Thor
+  Output.instance.fancy
 
   desc 'create_ast', 'Runs yard in given folder to generate the AST for code in the folder'
   def create_ast(db_folder, folder_with_ruby_code)
@@ -11,9 +11,9 @@ class Weakpoints < Thor
 
   desc 'search FOLDER_WITH_RUBY_CODE', 'search for weakpoints in FOLDER_WITH_RUBY_CODE'
   def search(folder_with_ruby_code)
+    Output.instance.decorated_header "SEARCHING FOR WEAKPOINTS"
     db_folder = yardoc_objects_folder(folder_with_ruby_code)
     create_ast(db_folder, folder_with_ruby_code) unless use_cached_db?(db_folder)
-    # NoSuperCall.new(db_folder).search
     InspectorJuve.run(db_folder)
   end
 

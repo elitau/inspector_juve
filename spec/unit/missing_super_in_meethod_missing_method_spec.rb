@@ -11,7 +11,7 @@ module InspectorJuve
       weakpoint.search
       reporter.size.should == 1
       mm_weakpoint = reporter.first
-      mm_weakpoint.to_s.should == "MissingSuperInMethodMissingFixture#method_missing has no super call"
+      mm_weakpoint.to_s.should == "MissingSuperInMethodMissingFixture#method_missing has no super call in missing_super_in_method_missing_fixture.rb:3"
     end
 
     # do not find wrong positives

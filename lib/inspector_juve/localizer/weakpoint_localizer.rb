@@ -5,8 +5,12 @@ module InspectorJuve
     def initialize(object_repository: [], reporter: "")
       @object_repository = object_repository
       @reporter = reporter
-      # Registry.load! yard_objects_folder
-      # puts "Searching for #{self.class.name} weakpoint"
+    end
+
+    class << self
+      def title
+        name
+      end
     end
   end
 end

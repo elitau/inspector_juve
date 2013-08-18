@@ -2,9 +2,10 @@ module InspectorJuve
   class Weakpoint
     attr_reader :code_object
 
-    def initialize(code_object, error_message)
+    def initialize(code_object, error_message, localizer = :none)
       @error_message = error_message
       @code_object = code_object
+      @localizer = localizer
     end
 
     def message
