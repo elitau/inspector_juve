@@ -20,8 +20,12 @@ module InspectorJuve
     end
 
     def report
-      entries.each do |entry|
-        puts entry.to_s
+      if entries.any?
+        entries.each do |entry|
+          puts entry.to_s
+        end
+      else
+        puts "None found"
       end
     end
 
